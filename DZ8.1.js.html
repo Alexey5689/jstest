@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    body{
+            position: relative;
+        }
+  
+    #modalWindow{
+        display:flex;
+        flex-direction: column;
+        position: absolute;
+        border-radius: 10px;
+        top:39vh;
+        left:42vw;
+        height: 200px;
+        width: 400px;
+        border: 1px solid black;
+        background-color: rgb(243, 213, 213);  
+        padding: 20px; 
+        box-shadow: 0 0 3px, black;
+        
+    }
+    #wrapper{
+        position: fixed;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        display: none;
+        width: 100vw;
+        height: 49vw;
+        background-color: rgba(0, 0, 0, 0.664);
+        z-index: 1;
+    }
+    #cBtn{
+        border-radius: 10%;
+        width: 110px;
+        height: 50px;
+        margin-top: 20px;
+        margin-left: 33%;
+        text-align: center;
+        z-index: 2;
+    }
+    p{
+        font-size: 20px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        margin: 20px auto;
+    }
+    #oBtn{
+
+        border-radius: 10%;
+        font-size: 18px;
+        width: 110px;
+        height: 50px;
+        position: absolute;
+        margin-left: 50%;
+        margin-top: 50px;
+        background-color: rgb(243, 213, 213);
+        z-index: -1;
+    }   
+    </style>
+</head>
+<body> 
+    <input type="button" id="oBtn" value="Open Modal" onclick="modalMng(event);">
+    <div id = "wrapper">
+        <div id="modalWindow">
+            <p>Закрой это окно</p>
+            <input type="button" id="cBtn" value="Close" onclick="modalMng(event);">
+        </div>
+    </div>    
+    <script>
+        function modalMng(e){
+            if (e.target.id =="oBtn"){
+              modalWindow.style.display="flex";
+              wrapper.style.display = "block";
+            }
+            else if (e.target.id =="cBtn"){
+              modalWindow.style.display="none";
+              wrapper.style.display = "none"; 
+            }
+        }
+    </script>
+</body>
+</html>

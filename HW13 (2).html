@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .error {
+            color: red;
+        }
+        .colorBar{
+            height:200px;
+            width:30%;
+        }
+        .colorText{
+            display:inline-block;
+            padding: 20px;
+            background-color: rgba(255,255,255,0.5);
+            text-align: center;
+            margin: 0, auto;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Create new color</h1>
+        <form action="" method="get">
+            <span class="lable">Color:</span><span id="errColor" class="error"></span><br>
+            <input type="text" name="color" id="color" required><br>
+            <span class="lable">Type:</span><br>
+            <select name="type" id="type">
+                <option selected value="RGB">RGB</option>
+                <option value="RGBA">RGBA</option>
+                <option value="HEX">HEX</option>
+            </select><br>
+            <span class="lable">Code:</span><span id="errCode" class="error"></span><br>
+            <input type="text" name="code" id="code"><br>
+            <input type="button" value="Save" onclick="addColor()">
+        </form>
+        <div id="wrapper"></div>
+    </div>
+            
+            <script>
+                var colors = [];
+                colors[0] = {
+                    color: "Green",
+                    type: "RGB",
+                    code: "154, 205, 50"
+                }
+                colors[1] = {
+                    color: "CYAN",
+                    type: "RGBA",
+                    code: "0, 139, 139, 0.5"
+                }
+                //var allColors = {};
+                function addColor() {
+                    //1 Form validation
+                    //Получаю объект(узел) с инпутом назавания цвета
+                    colorField = document.getElementById('color');
+                    //Получаю объект(узел)  с тегом ошибки
+                    errColor = document.getElementById('errColor');
+
+                    errColor.innerHTML = "";
+                    //Поле обязательное - поле не пустое
+                    if (colorField.value === '') {
+                        errColor.innerHTML = "Обязательное поле!";
+                        return false;
+                    }
+                    //Должны быть только буквы
+                    nameTemplate = /[a-z]/i;
+                    if (!nameTemplate.test(colorField.value)) {
+                        errColor.innerHTML = "Должны быть только буквы!";
+                        return false;
+                    }
+                    //Название не должно повторяться в других цветах
+                    //Регистр не важен
+                    for (let i = 0; i < colors.length; i++)
+                        if (colors[i].color.toUpperCase() === colorField.value.toUpperCase()) {
+                            console.log(colors[i].color.toUpperCase);
+                            errColor.innerHTML = "Такое имя уже есть!";
+                            return false;
+                        }
+                    //Проверяем поле Code
+                    typeField = document.getElementById('type');
+                    codeField = document.getElementById('code');
+                    errCode = document.getElementById('errCode');
+                    errCode.innerHTML = "";
+                    //1 RGB
+                    if (typeField.value === 'RGB') {
+                        //Проверка на соотв шаблону = чило запятая число
+                        codeTpl = /^[0-9]{1,3}\,[0-9]{1,3}\,[0-9]{1,3}$/;
+                        if (!codeTpl.test(codeField.value)) {
+                            errCode.innerHTML = "Неверный формат кода!";
+                            return false;
+                        }
+                        typeTpl = /\d{1,3}/g;//шаблон для кода в соответств с типом
+                        digArr = codeField.value.match(typeTpl);
+                        for (let index = 0; index < digArr.length; index++) {
+                            if (digArr[index] > 255) {
+                                errCode.innerHTML = "Значение не больше 255!";
+                                return false;
+                            }
+
+                        }
+                    }
+                    //1 RGBA
+                    if (typeField.value === 'RGBA') {
+                        //Проверка на соотв шаблону = чило запятая число
+                        codeTpl = /^[0-9]{1,3}\,[0-9]{1,3}\,[0-9]{1,3}\,[01][\.0-9]*$/;
+                        if (!codeTpl.test(codeField.value)) {
+                            errCode.innerHTML = "Неверный формат кода!";
+                            return false;
+                        }
+                        
+                        digArr = codeField.value.split(",");
+                        console.log(digArr); 
+                        for (let index = 0; index < 3; index++) {
+                            if (digArr[index] > 255) {
+                                errCode.innerHTML = "Значение не больше 255!";
+                                return false;
+                            }
+
+                        }
+                        if (parseFloat(digArr[3])> 1) {
+                                errCode.innerHTML = "4 значение от 0 до 1!";
+                                return false;
+                            }
+ 
+                    }
+                    //2 Добавить в массив 
+                    colors.push({
+                    color: colorField.value,
+                    type: typeField.value,
+                    code: codeField.value
+                });
+
+                    //3 отрисовать
+                    drawColor = colors[colors.length-1];
+                    //1 действие - создаем элемент
+                    var newColorBar = document.createElement('div');
+                    //2 действие - меняем(настраиваем) элемент
+                    newColorBar.className = "colorBar" ;
+                    var newColorText = document.createElement('span');
+                    newColorText.className = "colorText" ;
+                    newColorText.innerHTML = drawColor.type+ "<br> rgb("+drawColor.code+")";
+                    //2.1 прикрепил дочерний узел к созданному
+                    newColorBar.appendChild(newColorText);
+                 if (drawColor.type ==='RGB'){
+                    newColorBar.style.backgroundColor = "rgb("+drawColor.code+")";
+                    console.log("rgb("+drawColor+")");
+                 }
+
+                else if(drawColor.type ==='RGBA')
+                     newColorBar.style.background = "rgba("+drawColor.code+")";
+                else
+                    return false;
+                    wrapTag = document.getElementById('wrapper');
+                    console.log(newColorBar.innerHTML);
+                    //3 действие - вставляем созданный элемент
+                    //в наш HTML-документ
+                    wrapTag.appendChild(newColorBar);
+            }
+                function loadColors() {
+
+                }
+            </script>
+
+</body>
+
+</html>

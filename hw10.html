@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            position: relative;
+        }
+        #modalWindow{
+        display:none;
+        flex-direction: column;
+        position: absolute;
+        top:20vh;
+        left:20vw;
+        height: 200px;
+        width: 400px;
+         border: 1px solid black;
+         background-color: rgb(154, 171, 187);  
+         padding: 20px; 
+         box-shadow: 0 0 3px, black;
+        }
+        #cBtn{
+            margin:20px;
+            text-align: center;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <label for="Name">Ваше имя</label>
+    <input type="text" name="Name" id="uName">
+    <input type="button" id="oBtn" value="Open" onclick="modalMng(event);">
+    <div id="modalWindow">
+        <p>Закрой это окно</p>
+        <input type="button" id="cBtn" value="Close" onclick="modalMng(event);">
+    </div>
+    <script>
+        uName.addEventListener('keydown', function (e){
+            if(e.key>="0"&&e.key<="9")
+            return e.preventDefault();
+        })
+        function modalMng(e){
+            if (e.target.id =="oBtn"){
+            modalWindow.style.display="flex";}
+            else if (e.target.id =="cBtn")
+            modalWindow.style.display="none";
+        }
+    </script>
+</body>
+</html>

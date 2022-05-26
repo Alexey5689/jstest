@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        .footbol_fild{
+            position: relative;
+            margin: 50px auto;
+            width: 1400px;
+            height: 700px;
+            background-image: url(depositphotos_126251876-stock-photo-the-soccer-field-background.jpg);
+            background-repeat:no-repeat;
+            background-size: 1400px 700px;
+        }
+        #footbol_bol{
+            border-radius: 50%;
+            position: absolute;
+            top:0px;
+            left:0px;
+            height: 100px;
+            width: 100px;
+            background-image: url(LTKzBp55c.png);
+            background-size: 100px 100px;
+            transition: all 1s;
+        }
+    </style>
+</head>
+<body>
+    <div class ="footbol_fild" onclick="move_bol(event)">
+        <div id ="footbol_bol">
+        </div>
+    </div>
+
+    <script>
+        function move_bol(e){
+            footbol_bol.style.left = e.offsetX - 50  + "px";
+            footbol_bol.style.top = e.offsetY- 50  + "px";
+            console.log(footbol_bol.style.left);
+
+            if(footbol_bol.style.top <= 0 + "px"){
+                footbol_bol.style.top = 0 + "px"; 
+                 
+            }
+            if(footbol_bol.style.left <= 0 + "px"){
+                footbol_bol.style.left = 0 + "px";
+                
+            }
+            if(footbol_bol.style.top >= 600 + "px"){
+                footbol_bol.style.top = 600 + "px";
+                
+            }
+            if(parseInt(footbol_bol.style.left) > 1300){
+                footbol_bol.style.left = 1300 + "px"; 
+            } 
+                
+           
+            
+        }
+    </script>
+</body>
+</html> 
+<!-- // if(footbol_bol.style.top < 0 + "px"&& footbol_bol.style.left > 0 +"px"){
+            //     footbol_bol.style.top = 0 + "px";
+            //     footbol_bol.style.left=(e.offsetX - 50)+"px";
+            // } 
+            // else if(footbol_bol.style.left < 0 +"px" && footbol_bol.style.top > 0 + "px"){
+            //     footbol_bol.style.left = 0 +"px";
+            //     footbol_bol.style.top=(e.offsetY - 50)+"px";
+            // }
+            // else if(footbol_bol.style.left < 0 +"px" && footbol_bol.style.top < 0 + "px" ){
+            //     footbol_bol.style.top = 0 + "px";
+            //     footbol_bol.style.left = 0 +"px";
+            // }
+            // else if(footbol_bol.style.left >= 1300 +"px" && footbol_bol.style.top >= 600 +"px"){
+            //     footbol_bol.style.left = 1300 +"px";
+            //     footbol_bol.style.top = 600 + "px";
+            // }
+           
+            //footbol_bol.style.left = e.offseX - 50 + "px";
+            //footbol_bol.style.top = e.offsetY - 50 + "px";
+            //console.log(footbol_bol.style.left); -->

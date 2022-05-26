@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .date{
+            text-align: right;
+        }
+        #messageTable{
+
+            width:800px;
+        }
+        tr{
+            border: 1px solid black;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <table id="messageTable">
+        <tr>
+            <td class="name"></td>
+            <td class="date"></td>
+        </tr>
+        <tr colspan = "2">
+            <td></td>
+        </tr>
+    </table>
+    <h2>Add new message</h2>
+    <form action="" method="get">
+        Your name: <input type="text" name= "name"/></br>
+        Yor message: <input type="text" name= "message"/></br>
+        <input onclick="add_message()" type="button" value="Send">
+    </form>
+    <script>
+        function add_message(){
+            t = document.getElementById('messageTable').childNodes[1];
+            data = t.children[t.children.length-2];
+            newData = data.cloneNode(true);
+            msg = t.children[t.children.length-1];
+            newMsg = msg.cloneNode(true);
+            data.cells[0].innerHTML=document.forms[0].elements.name.value;
+            cDate = new Date(Date.now());
+            data.cells[1].innerHTML= cDate.toDateString();
+            msg.cells[0].innerHTML=document.forms[0].elements.message.value;
+            t.appendChild(newData);
+            t.appendChild(newMsg);
+            console.log(t.children);
+        }
+    </script>
+</body>
+</html>

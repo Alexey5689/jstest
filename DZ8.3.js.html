@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main{
+            display:flex;
+            width: 1000px;
+            height: 500px;
+            margin: 20px auto;
+            background-color: rgb(163, 165, 163);
+            align-items: center;
+            justify-content: space-evenly;
+
+        }
+        .wrapped,
+        #button{
+            border-radius: 10px;
+        }
+        p{
+            font-size: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .wrapped{
+            display:flex;
+            height: 300px;
+            width: 700px;
+            background-color: rgb(255, 255, 255);
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        #button{
+            display:flex;
+            height:300px;
+            width: 200px;
+            background-color: rgb(255, 255, 255);
+            align-items: center;
+            justify-content: space-evenly;
+            box-shadow: 5px 5px 5px rgb(0, 0, 0);
+
+        }
+        #circl1,
+        #circl2,
+        #circl3{
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            background-color: rgb(148, 148, 148);
+        }
+    </style>
+<body>
+    <div class="main">
+        <div class="wrapped">
+            <div id="circl1"></div>
+            <div id="circl2"></div>
+            <div id="circl3"></div>
+
+        </div>
+        <div id="button" onclick = "press_button(event)", onmousedown ="mousdown(event)", onmouseup="mouseup(event)">
+            <P>NEXT</P>
+        </div>
+    </div> 
+    <script>
+        let counter = 0;
+        function press_button(e){
+
+           
+                counter++;
+                if(counter === 1){
+                    circl1.style.backgroundColor = "rgb("+9+"," +255+","+ 0+")";
+                }
+                else if(counter === 2){
+                    circl1.style.backgroundColor = "rgb("+148+"," +148+","+ 148+")";
+                    circl2.style.backgroundColor = "rgb("+249+"," +253+","+ 0+")";
+                }
+                else if(counter === 3){
+                    circl2.style.backgroundColor = "rgb("+148+"," +148+","+ 148+")";
+                    circl3.style.backgroundColor = "rgb("+252+"," +0+","+ 0+")";
+                }
+                else{
+                    counter = 1;
+                    circl1.style.backgroundColor = "rgb("+9+"," +255+","+ 0+")";
+                    circl2.style.backgroundColor = "rgb("+148+"," +148+","+ 148+")";
+                    circl3.style.backgroundColor = "rgb("+148+"," +148+","+ 148+")";
+                }
+          
+        }
+        function mousdown(e){
+            button.style.boxShadow =  "inset"+" "+ 5 +"px" +" "+  5 +"px" +" "+  5 +"px";
+        }
+        function mouseup(e){
+            button.style.boxShadow =  5 +"px" +" "+  5 +"px" +" "+  5 +"px";
+        }
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style>
+        #answ1,
+        #answ2 {
+            display: none;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="" method="get">
+        <p><span id="num"></span><span id="question">Are you ready to start?</span></p>
+        <input type="radio" name="answers" id="answ1" value="1"><span id="answText1"></span></br>
+        <input type="radio" name="answers" id="answ2" value="2"><span id="answText2"></span></br>
+        <input type="button" onclick="nextQstn()" value="Go">
+    </form>
+    <p id="results"></p>
+    <script>
+        var qstnArray = [];//массив вопросов
+        var numRightAnswers = 0;//кол-во верных ответов
+        var start = 1;//первое нажатие на кнопку
+        var cnt = 0;
+        qstnArray[0] = new Object;
+        qstnArray[0].qstnText = "How many letters in my name?";
+        qstnArray[0].qstnAnswers = ["4", "5"];
+        qstnArray[0].rightAnswer = "1";//можно хранить не конкретный ответ, а индекс правильного ответа
+        qstnArray[1] = new Object;
+        qstnArray[1].qstnText = "How many stars in the sky?";
+        qstnArray[1].qstnAnswers = ["many", "5"];
+        qstnArray[1].rightAnswer = "2";
+        qstnArray[2] = new Object;
+        qstnArray[2].qstnText = "How many eyaes you have?";
+        qstnArray[2].qstnAnswers = ["many", "1"];
+        qstnArray[2].rightAnswer = "1";
+
+        function nextQstn() {
+            //ловим кнопку
+            btnTag = document.forms[0].elements[2];
+            //оценка ответа
+            if (btnTag.value == "Next"||btnTag.value == "Finish") {
+                answ1Input = document.getElementById("answ1");
+                answ2Input = document.getElementById("answ2");
+                console.log(answ2Input.checked);
+                console.log(qstnArray[cnt - 1].rightAnswer)
+                if (answ1Input.checked && (qstnArray[cnt].rightAnswer === "1") ||
+                    answ2Input.checked && (qstnArray[cnt].rightAnswer === "2"))
+                    numRightAnswers++;//увеличиваем число прав ответов
+                
+                if (btnTag.value == "Finish") {
+                    document.forms[0].style.display = "none";
+                    resTag = document.getElementById("results");
+                    resTag.style.display = "inline block";
+                    resTag.innerHTML = "Отвечено верно на " + numRightAnswers + " из " + qstnArray.length;
+                }
+            }
+            else
+                btnTag.value = "Next"; //после первого нажатия сбрасываем флаг
+            //построение нового вопроса
+            numTag = document.getElementById("num");
+            numTag.innerHTML = cnt + 1 + ') ';
+            qstP = document.getElementById("question");
+            qstP.innerHTML = qstnArray[cnt].qstnText;
+            document.getElementById("answ1").style.display = "inline";
+            document.getElementById("answ2").style.display = "inline";
+            answ1Span = document.getElementById("answText1");
+            answ1Span.innerHTML = qstnArray[cnt].qstnAnswers[0];
+            answ2Span = document.getElementById("answText2");
+            answ2Span.innerHTML = qstnArray[cnt].qstnAnswers[1];
+
+            if (cnt === qstnArray.length - 1) 
+                btnTag.value = "Finish";
+            else
+                cnt++;
+        };
+    </script>
+</body>
+
+</html>
